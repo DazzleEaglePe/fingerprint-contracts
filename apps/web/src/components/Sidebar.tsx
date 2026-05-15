@@ -88,32 +88,29 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* User Info & Logout */}
-      <div className="p-6 border-t border-white/5 relative z-10">
-        <div className="flex items-center gap-3 px-4 py-3 mb-4 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-lg">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-600 to-teal-800 flex items-center justify-center text-white font-bold text-sm shadow-inner uppercase border border-emerald-400/20">
-            {user?.full_name?.charAt(0) || 'U'}
+      {/* User Info & Logout (Minimalist) */}
+      <div className="p-4 border-t border-white/5 relative z-10">
+        <div className="flex items-center justify-between px-2">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-emerald-950 flex items-center justify-center text-emerald-400 font-semibold text-xs border border-emerald-900/50 uppercase">
+              {user?.full_name?.charAt(0) || 'U'}
+            </div>
+            <div className="flex flex-col max-w-[140px]">
+              <span className="text-sm font-medium text-zinc-200 truncate">{user?.full_name?.split(' ')[0]}</span>
+              <span className="text-[10px] text-zinc-500 uppercase tracking-wider truncate">{user?.role}</span>
+            </div>
           </div>
-          <div className="flex flex-col truncate">
-            <span className="text-sm font-medium text-white truncate">{user?.full_name}</span>
-            <span className="text-[10px] text-emerald-400/80 uppercase tracking-wider font-semibold truncate">{user?.role}</span>
-          </div>
-        </div>
-        
-        <button
-          onClick={() => {
-            setIsOpen(false);
-            logout();
-          }}
-          className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl text-red-400/70 hover:text-red-400 hover:bg-red-500/10 transition-all font-medium text-sm group"
-        >
-          <LogOut className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          Cerrar Sesión
-        </button>
-
-        {/* System Version */}
-        <div className="mt-6 flex justify-center text-[9px] text-emerald-900/50 uppercase tracking-widest font-semibold pb-2">
-          DecData OS • v2.4.1
+          
+          <button
+            onClick={() => {
+              setIsOpen(false);
+              logout();
+            }}
+            className="p-2 text-zinc-500 hover:text-red-400 hover:bg-white/5 rounded-lg transition-colors group"
+            title="Cerrar Sesión"
+          >
+            <LogOut className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+          </button>
         </div>
       </div>
     </div>

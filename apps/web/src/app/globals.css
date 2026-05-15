@@ -128,3 +128,30 @@
     @apply font-sans;
   }
 }
+
+/* Custom Scrollbar - Premium Dark Emerald Aesthetic */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #040f0a; /* Very dark green/black background */
+  border-left: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0b291c; /* Dark emerald */
+  border-radius: 10px;
+  border: 2px solid #040f0a; /* Gives a padded look */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #104832; /* Lighter emerald on hover */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0b291c #040f0a;
+}

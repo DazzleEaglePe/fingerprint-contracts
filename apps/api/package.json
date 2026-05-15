@@ -1,0 +1,14 @@
+{
+  "name": "@decdata/api",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "uv run uvicorn src.decdata_api.main:app --reload --host 0.0.0.0 --port 8000",
+    "lint": "uv run ruff check src tests && uv run ruff format --check src tests",
+    "test": "uv run pytest",
+    "db:migrate": "uv run alembic upgrade head",
+    "db:seed": "uv run python scripts/seed_db.py",
+    "biometric:evaluate": "uv run python scripts/evaluate_biometric.py",
+    "openapi:export": "uv run python scripts/generate_openapi.py"
+  }
+}

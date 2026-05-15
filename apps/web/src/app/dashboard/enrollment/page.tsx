@@ -113,12 +113,26 @@ export default function BiometricScannerPage() {
   const isProcessing = enrollMutation.isPending || verifyMutation.isPending;
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Motor Biométrico</h1>
-        <p className="text-zinc-400">
-          Módulo de extracción de minutiae y matching dactilar.
-        </p>
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      
+      {/* Premium Hero Banner */}
+      <div className="relative w-full rounded-3xl overflow-hidden bg-gradient-to-br from-[#104832] via-[#0b3323] to-[#04140d] p-8 md:p-12 shadow-2xl border border-emerald-900/30">
+        {/* Glow effects */}
+        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[120%] bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none mix-blend-screen" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[40%] h-[100%] bg-emerald-400/5 rounded-full blur-[60px] pointer-events-none mix-blend-screen" />
+        
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-emerald-300 text-[10px] uppercase font-bold tracking-widest mb-6 backdrop-blur-md">
+            <Activity className="w-3.5 h-3.5" /> CORE BIOMETRIC ENGINE
+          </div>
+          <h1 className="text-4xl md:text-5xl font-medium tracking-tight text-white leading-tight mb-4">
+            Clareza para decidir.<br />
+            <span className="text-emerald-400">Seguridad para actuar.</span>
+          </h1>
+          <p className="text-emerald-200/70 text-base md:text-lg max-w-xl leading-relaxed">
+            Módulo avanzado de extracción de minutiae y matching dactilar. Estrategia internacional real. Sin atajos. Sin improvisación.
+          </p>
+        </div>
       </div>
 
       {/* Tabs Selector */}

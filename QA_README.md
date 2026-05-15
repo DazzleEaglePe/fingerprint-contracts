@@ -51,6 +51,38 @@ El proyecto es un monorepo gestionado con **Turborepo** y **pnpm**, dividido en 
 
 ---
 
+## ✅ Plan de Pruebas Exhaustivas (Test Cases)
+
+El equipo de QA debe validar los siguientes escenarios para garantizar la robustez del sistema:
+
+### 🔐 1. Autenticación y Permisos
+- [ ] **Login Exitoso:** Ingresar con credenciales válidas y ser redirigido al `/dashboard`.
+- [ ] **Login Fallido:** Intentar ingresar con credenciales inválidas; verificar que aparezca la alerta de error y no permita el acceso.
+- [ ] **Rutas Protegidas:** Intentar acceder a `/dashboard` sin haber iniciado sesión. Debe redirigir automáticamente a `/login`.
+- [ ] **Logout:** Cerrar sesión y verificar que el token se elimina correctamente (las cookies se limpian).
+
+### 🏢 2. Gestión de Entidades (Fundos y Dueños)
+- [ ] **Crear Fundo:** Usar el modal premium para crear un nuevo fundo. Validar que aparezca inmediatamente en la lista y que el contador del dashboard aumente.
+- [ ] **Crear Dueño:** Registrar a un dueño asociándolo a un fundo existente. Probar validación de formato (ej. enviar DNI vacío o mal formato) y verificar el rechazo.
+- [ ] **Sincronización:** Asegurarse de que el nuevo dueño aparezca instantáneamente en la tabla sin necesidad de recargar la página.
+
+### 📝 3. Gestión de Contratos
+- [ ] **Crear Contrato:** Generar un nuevo contrato asignándolo a un fundo.
+- [ ] **Estado Inicial:** Validar que el nuevo contrato nazca con el estado `PENDING_SIGNATURE` o `DRAFT`.
+- [ ] **Renderizado:** Comprobar que en el Dashboard (Actividad) y en la lista de Contratos el diseño de las tarjetas y los badges de estado coincidan con la estética esperada.
+
+### 🧬 4. Pruebas Biomédicas (Edge Cases)
+- [ ] **TC-01: Enrolamiento Exitoso (Happy Path):** Enrolar la huella de un dueño sin plantilla previa. Verificar el Toast de éxito y las métricas (Score de calidad y extracción de minutiae).
+- [ ] **TC-02: Doble Enrolamiento:** Intentar enrolar la huella de un dueño que *ya está enrolado*. Verificar que el Backend devuelve HTTP 400 y el Frontend muestra el error: "Este dueño ya se encuentra enrolado con una huella activa."
+- [ ] **TC-03: Firma Exitosa (Matching Correcto):** Seleccionar un contrato pendiente y validar con la huella correcta. 
+  - *Validación:* Verificar mensaje de éxito con Score alto (> Threshold).
+  - *Sincronización:* Ir a `/dashboard/contracts` y confirmar que el contrato dice `SIGNED` con su Score Biométrico en color gris.
+- [ ] **TC-04: Firma Fallida (Falso Positivo FAR):** Intentar firmar el contrato de "Juan" usando la huella de "María". Verificar que el algoritmo arroje un Score bajo y se deniegue la firma con el veredicto `RECHAZADO`.
+- [ ] **TC-05: Filtro Inteligente de Desplegable:** Tras firmar un contrato, volver a la pantalla de validación biométrica. Confirmar que el contrato firmado **ya no aparece** en el menú `<select>` de contratos a firmar.
+- [ ] **TC-06: Huella Corrupta:** Subir un archivo no válido (ej. un PDF con extensión `.bmp` o una imagen completamente negra) y asegurar que la API lo rechace por "Fallo en extracción de minutiae".
+
+---
+
 ## 🧪 Notas para el Agente Antigravity de QA
 
 Si estás ayudando a validar este proyecto, ten en cuenta las siguientes peculiaridades del estado actual:

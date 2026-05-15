@@ -192,7 +192,9 @@ export default function BiometricScannerPage() {
                     <option value="">-- Selecciona un contrato --</option>
                     {contracts?.filter(c => {
                       const selectedOwner = owners?.find(o => o.id === ownerId);
-                      return !ownerId || c.fundo_id === selectedOwner?.fundo_id;
+                      const isSameFundo = !ownerId || c.fundo_id === selectedOwner?.fundo_id;
+                      const isPending = c.status === "PENDING_SIGNATURE" || c.status === "DRAFT";
+                      return isSameFundo && isPending;
                     }).map((contract) => (
                       <option key={contract.id} value={contract.id}>
                         {contract.title} - {contract.status}

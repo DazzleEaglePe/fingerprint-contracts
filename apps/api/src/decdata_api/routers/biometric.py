@@ -61,7 +61,7 @@ async def enroll_fingerprint(
     )
     old_template = existing.scalar_one_or_none()
     if old_template:
-        old_template.is_active = False
+        raise HTTPException(status_code=400, detail="Este dueño ya se encuentra enrolado con una huella activa.")
 
     # Crear nueva plantilla
     template = BiometricTemplate(
@@ -184,10 +184,13 @@ async def verify_fingerprint(
     # Si match, firmar contrato
     if is_match:
         contract.status = "SIGNED"
-        contract.signed_at = datetime.now(timezone.utc)
+        contract.signed_at = datetime.now(timezone.utc).replace(tzinfo=None)
         contract.signed_by_owner_id = owner.id
         contract.biometric_verification_id = verification.id
         contract.biometric_score = match_result["score"]
+        db.add(contract)
+    
+    await db.commit()
 
     return VerificationResponse(
         verification_id=verification.id,
